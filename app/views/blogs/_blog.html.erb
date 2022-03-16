@@ -1,0 +1,35 @@
+<% obj.each do |blog| %>
+<div class="row ">
+    <div class=" col-xs-8 col-xs-offset-2">
+        <div class="well  well-lg">
+
+            <div class="blog-title">
+
+                <%= link_to blog.title, blog_path(blog) %>
+
+            </div>
+
+            <div class="blog-body">
+
+                <%= truncate(blog.description, length: 100) %>
+
+                <div class="blog-meta-details">
+
+                    <small>Created by: <%= blog.user.username if blog.user%>,
+
+                        <%= time_ago_in_words(blog.created_at) %> ago,
+
+                        last updated: <%= time_ago_in_words(blog.updated_at) %> ago</small>
+
+                </div>
+            </div>
+<% if logged_in? && current_user == blog.user %>
+            <div class="blog-actions">
+                <%= link_to "Edit this blog", edit_blog_path(blog), class: "btn btn-xs btn-primary" %>
+                <%= link_to "Delete this blog", blog_path(blog), method: :delete, data: { confirm: "Are you sure you want to delete the blog?"},class: "btn btn-xs btn-danger" %>
+            </div>
+         <% end %>   
+        </div>
+    </div>
+</div>
+<% end %>

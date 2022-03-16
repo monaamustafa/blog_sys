@@ -1,0 +1,33 @@
+<h2 align="center">Title: <%= @blog.title %></h2>
+
+<div class="well col-xs-8 col-xs-offset-2">
+
+<h4 class="center description"><strong>Description:</strong></h4>
+
+<hr>
+<%= simple_format(@blog.description) %>
+<div class="blog-meta-details">
+<small>Created by: <%= @blog.user.username if @blog.user%>,
+
+<%= time_ago_in_words(@blog.created_at) %> ago,
+
+last updated: <%= time_ago_in_words(@blog.updated_at) %> ago</small>
+
+</div>
+
+<div class="blog-actions">
+<% if logged_in? && current_user == @blog.user %>
+
+<%= link_to "Edit this blog", edit_blog_path(@blog), class: "btn btn-xs btn-primary" %>
+
+<%= link_to "Delete this blog", blog_path(@blog), method: :delete,
+
+data: { confirm: "Are you sure you want to delete the blog?"},
+
+class: "btn btn-xs btn-danger" %>
+<% end %>
+<%= link_to "View all blogs", blogs_path, class: "btn btn-xs btn-success" %>
+
+</div>
+
+</div>
